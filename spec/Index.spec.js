@@ -1,17 +1,16 @@
-describe('Directive Test', function() {
-	browser.get('http://localhost:8080');
+describe('UserProfile Directive', function () {
+  browser.get('http://localhost:8080');
 
-	var counter = element(by.css('.counter'));
-	var count = element(by.css('.counter__count'));
+  it('should properly format name, position, and description for Bill Gates', function () {
+    expect(element(by.css('[ng-transclude="name"]')).getInnerHtml()).toContain('Bill Gates');
+    expect(element(by.css('[ng-transclude="position"]')).getInnerHtml()).toContain('Chairman, Microsoft');
+    expect(element(by.css('[ng-transclude="description"]')).getInnerHtml()).toContain('William Henry "Bill" Gates III');
+  });
 
-	it('should have an initial 0 count', function () {
-		expect(count.getInnerHtml()).toEqual('Current count: 0');
-	});
-
-	it('should increment when we click on it', function () {
-		counter.click();
-
-		expect(count.getInnerHtml()).toEqual('Current count: 1');
-	});
+  it('should properly format name, position, and description for Tim Cook', function () {
+    expect(element(by.css('user-profile:nth-child(2) [ng-transclude="name"]')).getInnerHtml()).toContain('Tim Cook');
+    expect(element(by.css('user-profile:nth-child(2) [ng-transclude="position"]')).getInnerHtml()).toContain('CEO, Apple');
+    expect(element(by.css('user-profile:nth-child(2) [ng-transclude="description"]')).getInnerHtml()).toContain('(born November 1, 1960)');
+  });
 
 });
